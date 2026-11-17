@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Mohammed Adil Ali's Prompt Engineering and AI learning portfolio." />
+  <title>Mohammed Adil Ali | Prompt Engineering Portfolio</title>
+  <style>
+    :root {
+      --bg: #080b16;
+      --surface: #11172a;
+      --surface-2: #171f38;
+      --text: #eef3ff;
+      --muted: #a7b2cc;
+      --blue: #42c5ff;
+      --purple: #9b7bff;
+      --line: rgba(151, 174, 225, .18);
+      --shadow: 0 18px 55px rgba(0,0,0,.28);
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 85% 8%, rgba(126, 91, 255, .16), transparent 28rem),
+        radial-gradient(circle at 10% 30%, rgba(42, 185, 255, .10), transparent 25rem),
+        var(--bg);
+      color: var(--text); line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    .nav-wrap { position: sticky; top: 0; z-index: 20; background: rgba(8,11,22,.82); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); }
+    nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { font-weight: 800; letter-spacing: .02em; }
+    .brand span { color: var(--blue); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 18px; color: var(--muted); font-size: .9rem; }
+    .nav-links a:hover { color: var(--blue); }
+    .menu-btn { display: none; border: 1px solid var(--line); background: var(--surface); color: var(--text); padding: 8px 12px; border-radius: 10px; }
+    .hero { min-height: 680px; display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 40px; padding: 80px 0 90px; }
+    .eyebrow { color: var(--blue); text-transform: uppercase; letter-spacing: .18em; font-size: .78rem; font-weight: 800; }
+    h1 { font-size: clamp(2.8rem, 7vw, 5.6rem); line-height: 1.03; letter-spacing: -.055em; margin: 16px 0 20px; }
+    .gradient { background: linear-gradient(100deg, var(--blue), var(--purple)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero p { max-width: 650px; color: var(--muted); font-size: 1.1rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 30px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 19px; border-radius: 12px; font-weight: 750; border: 1px solid var(--line); transition: .2s; }
+    .btn.primary { color: #07101b; border: 0; background: linear-gradient(100deg, var(--blue), #8d91ff); }
+    .btn.secondary { background: rgba(255,255,255,.035); }
+    .btn:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .hero-card { position: relative; padding: 30px; border: 1px solid var(--line); border-radius: 28px; background: linear-gradient(145deg, rgba(25,35,65,.95), rgba(15,20,39,.92)); box-shadow: var(--shadow); overflow: hidden; }
+    .hero-card:before { content: ""; position: absolute; width: 220px; height: 220px; border-radius: 50%; border: 1px solid rgba(66,197,255,.35); right: -75px; top: -75px; box-shadow: 0 0 0 22px rgba(66,197,255,.035), 0 0 0 48px rgba(155,123,255,.035); }
+    .avatar { width: 76px; height: 76px; display: grid; place-items: center; border-radius: 22px; font-size: 1.7rem; font-weight: 900; background: linear-gradient(135deg, var(--blue), var(--purple)); color: #07101b; margin-bottom: 22px; }
+    .hero-card h2 { margin: 0 0 5px; font-size: 1.45rem; }
+    .hero-card .sub { color: var(--muted); margin: 0 0 22px; }
+    .quick-facts { display: grid; gap: 12px; }
+    .fact { display: flex; justify-content: space-between; gap: 15px; border-top: 1px solid var(--line); padding-top: 11px; font-size: .9rem; }
+    .fact span:first-child { color: var(--muted); }
+    section { padding: 76px 0; }
+    .section-head { max-width: 720px; margin-bottom: 32px; }
+    .section-head h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.12; margin: 8px 0 12px; letter-spacing: -.035em; }
+    .section-head p { color: var(--muted); margin: 0; }
+    .grid { display: grid; gap: 18px; }
+    .two { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .three { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .card { padding: 24px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(17,23,42,.78); box-shadow: 0 10px 30px rgba(0,0,0,.12); }
+    .card h3 { margin: 0 0 9px; font-size: 1.12rem; }
+    .card p { color: var(--muted); margin: 0; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 18px; }
+    .tag { border: 1px solid rgba(66,197,255,.22); background: rgba(66,197,255,.08); color: #cceeff; border-radius: 999px; padding: 6px 11px; font-size: .82rem; }
+    .stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 28px; }
+    .stat { padding: 18px; border-radius: 16px; background: var(--surface-2); border: 1px solid var(--line); }
+    .stat strong { display: block; font-size: 1.7rem; color: var(--blue); }
+    .stat span { color: var(--muted); font-size: .84rem; }
+    .list { padding-left: 20px; color: var(--muted); margin-bottom: 0; }
+    .list li { margin: 7px 0; }
+    .technique { border-left: 3px solid var(--blue); }
+    .technique:nth-child(even) { border-left-color: var(--purple); }
+    .prompt-box { margin-top: 14px; padding: 15px; border-radius: 13px; background: #0b1020; border: 1px solid var(--line); color: #dce7ff; font-size: .9rem; }
+    .prompt-box b { display: block; color: var(--blue); margin-bottom: 6px; font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; }
+    .project-number { color: var(--blue); font-size: .78rem; letter-spacing: .12em; font-weight: 800; }
+    .project-card { min-height: 235px; display: flex; flex-direction: column; }
+    .project-card p { flex: 1; }
+    .project-card .focus { margin-top: 17px; padding-top: 13px; border-top: 1px solid var(--line); font-size: .86rem; color: #c8d2e9; }
+    .roadmap { counter-reset: step; }
+    .roadmap-item { position: relative; padding: 0 0 22px 52px; border-left: 1px solid rgba(66,197,255,.35); margin-left: 15px; }
+    .roadmap-item:last-child { border-left: 0; }
+    .roadmap-item:before { counter-increment: step; content: counter(step); position: absolute; left: -16px; top: 0; width: 31px; height: 31px; display: grid; place-items: center; border-radius: 50%; color: #07101b; font-weight: 900; background: linear-gradient(135deg,var(--blue),var(--purple)); }
+    .roadmap-item h3 { margin: 0 0 4px; }
+    .roadmap-item p { margin: 0; color: var(--muted); }
+    .contact-panel { text-align: center; padding: 42px; background: linear-gradient(130deg, rgba(66,197,255,.12), rgba(155,123,255,.13)); border: 1px solid var(--line); border-radius: 28px; }
+    .contact-panel p { color: var(--muted); }
+    footer { padding: 28px 0 40px; color: var(--muted); border-top: 1px solid var(--line); font-size: .85rem; }
+    .footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .note { font-size: .82rem; color: var(--muted); }
+    @media (max-width: 850px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; padding: 65px 0; }
+      .hero-card { max-width: 560px; }
+      .three { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    }
+    @media (max-width: 640px) {
+      .container { width: min(100% - 28px, 1120px); }
+      nav { min-height: 64px; }
+      .menu-btn { display: inline-block; }
+      .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; padding: 18px 22px; background: #0c1121; border-bottom: 1px solid var(--line); flex-direction: column; }
+      .nav-links.open { display: flex; }
+      .hero { padding: 55px 0; }
+      .two, .three { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; }
+      section { padding: 58px 0; }
+      .contact-panel { padding: 28px 20px; }
+      .fact { flex-direction: column; gap: 2px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-wrap">
+    <nav class="container">
+      <a class="brand" href="#home">ADIL<span>.</span></a>
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About</a><a href="#skills">Skills</a><a href="#prompting">Prompting</a>
+        <a href="#experiments">Experiments</a><a href="#projects">Projects</a><a href="#goals">Goals</a>
+      </div>
+    </nav>
+  </div>
+
+  <main>
+    <header class="container hero" id="home">
+      <div>
+        <div class="eyebrow">Prompt Engineering • AI • Data Science</div>
+        <h1>Mohammed<br><span class="gradient">Adil Ali</span></h1>
+        <p>
+          B.Tech Computer Science & Engineering student specializing in AI and Data Science.
+          Exploring how clear prompts, AI tools, and practical software projects can help turn
+          ideas into useful solutions.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#projects">Explore my projects</a>
+          <a class="btn secondary" href="#about">About me</a>
+        </div>
+      </div>
+      <aside class="hero-card">
+        <div class="avatar">MA</div>
+        <h2>Student Portfolio</h2>
+        <p class="sub">JECRC University · 3rd Semester</p>
+        <div class="quick-facts">
+          <div class="fact"><span>Programme</span><strong>B.Tech CSE (AI/DS)</strong></div>
+          <div class="fact"><span>Career interest</span><strong>Data Scientist</strong></div>
+          <div class="fact"><span>Focus</span><strong>AI & Software Development</strong></div>
+          <div class="fact"><span>Academic year</span><strong>2026–27</strong></div>
+        </div>
+      </aside>
+    </header>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">01 / Profile</div>
+          <h2>About <span class="gradient">me</span></h2>
+          <p>I am a computer science student interested in programming, web development, data handling, artificial intelligence, and practical uses of AI tools. I enjoy learning by building projects and improving them through testing and iteration.</p>
+        </div>
+        <div class="grid two">
+          <article class="card">
+            <h3>Academic background</h3>
+            <p><strong>JECRC University</strong><br>B.Tech – Computer Science & Engineering (AI/DS)<br>3rd Semester</p>
+            <div class="tag-row"><span class="tag">Class 10: 60%</span><span class="tag">Class 12: 85%</span><span class="tag">CGPA: 7.89</span></div>
+          </article>
+          <article class="card">
+            <h3>Career objective</h3>
+            <p>My future goal is to become a Data Scientist. I want to use Artificial Intelligence and technology to develop useful software applications, strengthen my coding skills, and become better at identifying, understanding, and fixing bugs in programs.</p>
+          </article>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>5</strong><span>Featured projects</span></div>
+          <div class="stat"><strong>5</strong><span>Prompting techniques explored</span></div>
+          <div class="stat"><strong>6</strong><span>AI tools explored</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">02 / Capabilities</div>
+          <h2>Technical <span class="gradient">skills</span></h2>
+          <p>Skills and tools I am developing through coursework, practice, and project work.</p>
+        </div>
+        <div class="grid three">
+          <article class="card"><h3>Programming</h3><p>Python, C, and C++ fundamentals for problem-solving and application logic.</p><div class="tag-row"><span class="tag">Python</span><span class="tag">C</span><span class="tag">C++</span></div></article>
+          <article class="card"><h3>Web development</h3><p>Building and understanding the structure, styling, and behaviour of web pages.</p><div class="tag-row"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div></article>
+          <article class="card"><h3>Data tools</h3><p>Working with Python libraries for arrays, tabular data, and data manipulation.</p><div class="tag-row"><span class="tag">NumPy</span><span class="tag">Pandas</span></div></article>
+          <article class="card"><h3>AI & prompting</h3><p>Writing structured instructions and using AI tools for learning and project exploration.</p><div class="tag-row"><span class="tag">Prompt Engineering</span><span class="tag">AI Tools</span></div></article>
+          <article class="card"><h3>Development practice</h3><p>Breaking tasks into steps, understanding errors, testing fixes, and refining solutions.</p><div class="tag-row"><span class="tag">Debugging</span><span class="tag">Testing</span></div></article>
+          <article class="card"><h3>Interests</h3><p>Exploring data science, software development, AI research, and practical innovation.</p><div class="tag-row"><span class="tag">Data Science</span><span class="tag">AI/ML</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="prompting">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">03 / Core subject</div>
+          <h2>Understanding <span class="gradient">Prompt Engineering</span></h2>
+          <p>Prompt engineering is the practice of designing, testing, and improving instructions given to an AI system so its response is more relevant, clear, and useful.</p>
+        </div>
+        <div class="grid two">
+          <article class="card">
+            <h3>A useful prompt includes</h3>
+            <ul class="list">
+              <li><strong>Role:</strong> the perspective or expertise requested.</li>
+              <li><strong>Task:</strong> the exact work to be performed.</li>
+              <li><strong>Context:</strong> relevant background information.</li>
+              <li><strong>Constraints:</strong> tools, length, language, or limitations.</li>
+              <li><strong>Output format:</strong> the structure expected.</li>
+              <li><strong>Verification:</strong> checks for accuracy and usefulness.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>My prompt design workflow</h3>
+            <ol class="list">
+              <li>Define the result I need.</li>
+              <li>Add the context that matters.</li>
+              <li>Choose a helpful role or perspective.</li>
+              <li>Set clear requirements and constraints.</li>
+              <li>Specify the output format.</li>
+              <li>Review, refine, and verify the response.</li>
+            </ol>
+          </article>
+        </div>
+        <div class="card" style="margin-top:18px">
+          <h3>Reusable prompt template</h3>
+          <div class="prompt-box"><b>Prompt template</b>Act as [role]. Help me [specific task]. Context: [relevant background]. Requirements: [constraints and tools]. Present the result as [format]. Explain important assumptions and include a way to verify the result.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="techniques">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">04 / Methods</div>
+          <h2>Prompting <span class="gradient">techniques</span></h2>
+          <p>Different techniques help communicate different kinds of tasks. The best choice depends on the problem and the context available.</p>
+        </div>
+        <div class="grid two">
+          <article class="card technique"><h3>01. Zero-shot prompting</h3><p>Ask for a task directly without providing an example.</p><div class="prompt-box">“Explain what a Python list is in simple language.”</div></article>
+          <article class="card technique"><h3>02. Few-shot prompting</h3><p>Provide a few examples to demonstrate the expected pattern.</p><div class="prompt-box">“happy → positive; awful → negative. Now classify: useful.”</div></article>
+          <article class="card technique"><h3>03. Role-based prompting</h3><p>Ask the AI to respond from a relevant perspective.</p><div class="prompt-box">“Act as a Python tutor and explain this error to a beginner.”</div></article>
+          <article class="card technique"><h3>04. Stepwise prompting</h3><p>Break a complex task into an ordered sequence of stages.</p><div class="prompt-box">“Organize this debugging task into diagnosis, possible causes, fix, and tests.”</div></article>
+          <article class="card technique"><h3>05. Contextual prompting</h3><p>Supply project-specific background and constraints.</p><div class="prompt-box">“For my college attendance app, explain how GPS validation could fit into the workflow.”</div></article>
+        </div>
+        <p class="note" style="margin-top:18px">For complex questions, I can request a concise explanation of the main steps, assumptions, and checks. I focus on useful explanations and verifiable results.</p>
+      </div>
+    </section>
+
+    <section id="tools">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">05 / AI toolkit</div>
+          <h2>AI tools I have <span class="gradient">explored</span></h2>
+          <p>I use AI tools as learning and productivity aids. Their responses should be reviewed and verified before being used.</p>
+        </div>
+        <div class="grid three">
+          <article class="card"><h3>ChatGPT</h3><p>Concept explanations, prompt drafting, coding assistance, and brainstorming.</p></article>
+          <article class="card"><h3>Claude AI</h3><p>Longer instructions, drafting, and structured analysis.</p></article>
+          <article class="card"><h3>Google Gemini</h3><p>Exploring ideas, explanations, and multimodal AI capabilities.</p></article>
+          <article class="card"><h3>Microsoft Copilot</h3><p>Productivity and development-related assistance.</p></article>
+          <article class="card"><h3>Perplexity AI</h3><p>Research exploration and locating sources to verify.</p></article>
+          <article class="card"><h3>Canva AI</h3><p>Visual concepts, presentation assets, and design assistance.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experiments">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">06 / Practical work</div>
+          <h2>Prompt <span class="gradient">experiments</span></h2>
+          <p>Examples of reusable prompts for academic learning and project tasks.</p>
+        </div>
+        <div class="grid two">
+          <article class="card"><h3>Learning a concept</h3><p>Goal: understand a technical topic at beginner level.</p><div class="prompt-box">Act as a patient computer science tutor. Explain [topic] for a first-year B.Tech student. Include a simple definition, an everyday analogy, one technical example, and three revision points.</div></article>
+          <article class="card"><h3>Debugging code</h3><p>Goal: investigate an error instead of blindly replacing code.</p><div class="prompt-box">Act as a programming mentor. Review the code and error message. Identify the likely cause, explain it simply, suggest the smallest correction, and provide tests for normal, boundary, and invalid inputs.</div></article>
+          <article class="card"><h3>Website planning</h3><p>Goal: turn a project idea into a structured website plan.</p><div class="prompt-box">Act as a UX planner. For [project], identify target users, core problem, key pages, main user journey, accessibility needs, and a responsive layout.</div></article>
+          <article class="card"><h3>Research support</h3><p>Goal: separate established facts from assumptions.</p><div class="prompt-box">Act as a research assistant. Outline a report on [topic]. Separate facts, assumptions, and questions requiring verification. Suggest credible source types and a checking list.</div></article>
+          <article class="card"><h3>Presentation preparation</h3><p>Goal: prepare concise content for a college presentation.</p><div class="prompt-box">Act as a presentation coach. Turn these notes into a six-slide outline. For each slide, give a title, up to four points, and one suggested visual. Avoid unsupported claims.</div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">07 / Project portfolio</div>
+          <h2>Selected <span class="gradient">projects</span></h2>
+          <p>A collection of startup, AI-enabled, safety-focused, and academic project concepts. Descriptions reflect the ideas and learning work; features should be labelled as proposed, prototyped, or implemented according to their actual status.</p>
+        </div>
+        <div class="grid two">
+          <article class="card project-card"><div class="project-number">PROJECT 01</div><h3>MagLoops</h3><p>A recycling and waste-management initiative exploring collection of paper, plastic, e-waste, and metals from households and organizations, with rewards for contributors.</p><div class="focus">Learning focus: user research, collection workflows, reward logic, and website planning.</div></article>
+          <article class="card project-card"><div class="project-number">PROJECT 02</div><h3>CycloneEye</h3><p>An AI/ML-based concept for identifying and classifying tropical cyclone patterns using satellite and weather information, with a focus on understandable local risk communication.</p><div class="focus">Learning focus: data sources, AI application research, risk categories, and local user needs.</div></article>
+          <article class="card project-card"><div class="project-number">PROJECT 03</div><h3>Smart Attendance System</h3><p>A college attendance system concept combining face recognition and GPS/location checks to support attendance recording and student workflows.</p><div class="focus">Learning focus: Python, image recognition concepts, registration flow, data handling, and error cases.</div></article>
+          <article class="card project-card"><div class="project-number">PROJECT 04</div><h3>TravAlert</h3><p>A tourist-safety concept involving digital identity, geo-fencing, risk-zone notifications, and an SOS workflow.</p><div class="focus">Learning focus: safety requirements, geolocation concepts, privacy, and system design.</div></article>
+          <article class="card project-card"><div class="project-number">PROJECT 05</div><h3>Library Management System</h3><p>An academic programming project for book records, searching, issuing and returning books, tracking availability, and calculating fines.</p><div class="focus">Learning focus: functions, data organization, input validation, and program logic.</div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="evaluation">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">08 / Quality checks</div>
+          <h2>Evaluating AI <span class="gradient">responses</span></h2>
+          <p>A polished response is not automatically correct. I use a checklist before relying on AI-generated content.</p>
+        </div>
+        <div class="grid three">
+          <article class="card"><h3>Relevance</h3><p>Does the answer address the actual task?</p></article>
+          <article class="card"><h3>Accuracy</h3><p>Can factual claims and technical details be verified?</p></article>
+          <article class="card"><h3>Completeness</h3><p>Are requirements, edge cases, or limitations missing?</p></article>
+          <article class="card"><h3>Clarity</h3><p>Can I understand and explain the result myself?</p></article>
+          <article class="card"><h3>Testability</h3><p>Can code or instructions be tested with expected results?</p></article>
+          <article class="card"><h3>Privacy & integrity</h3><p>Is sensitive information protected and assistance used responsibly?</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="goals">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">09 / Looking ahead</div>
+          <h2>Learning <span class="gradient">roadmap</span></h2>
+          <p>My next steps are focused on strengthening the foundations needed for data science and reliable software development.</p>
+        </div>
+        <div class="card roadmap">
+          <div class="roadmap-item"><h3>Programming foundations</h3><p>Practise Python, C/C++, data structures, debugging, and clean code.</p></div>
+          <div class="roadmap-item"><h3>Data science</h3><p>Build skills in NumPy, Pandas, data cleaning, exploratory analysis, and visualization.</p></div>
+          <div class="roadmap-item"><h3>AI and machine learning</h3><p>Study core ML concepts, datasets, model evaluation, and responsible AI.</p></div>
+          <div class="roadmap-item"><h3>Software development</h3><p>Improve web development, project structure, testing, and documentation.</p></div>
+          <div class="roadmap-item"><h3>Prompt engineering</h3><p>Compare prompt versions, record results, and test the reliability of AI outputs.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reflection">
+      <div class="container">
+        <div class="grid two">
+          <article class="card">
+            <div class="eyebrow">10 / Reflection</div>
+            <h2>Key learnings</h2>
+            <ul class="list">
+              <li>Define the task before asking an AI tool for a solution.</li>
+              <li>Relevant context can make responses more useful.</li>
+              <li>Large tasks are easier to handle in smaller stages.</li>
+              <li>AI-generated answers need independent verification.</li>
+              <li>AI should support learning, not replace my own effort.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="eyebrow">Closing note</div>
+            <h2>Keep learning. <span class="gradient">Keep building.</span></h2>
+            <p>Prompt engineering connects communication with technical problem-solving. The most useful result comes from a clear request, thoughtful iteration, and independent checking.</p>
+            <p class="note">I would like to thank my university faculty and everyone who supports my learning journey. AI tools were explored as learning and productivity aids while preparing this portfolio.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-panel">
+          <div class="eyebrow">Get in touch</div>
+          <h2>Thanks for <span class="gradient">visiting</span></h2>
+          <p>Mohammed Adil Ali · B.Tech CSE (AI/DS) · JECRC University</p>
+          <p><a class="btn secondary" href="mailto:adil7662577@gmail.com">Email me</a></p>
+          <p class="note">For a public GitHub Pages website, consider removing personal contact details and academic identifiers before publishing.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Mohammed Adil Ali</span>
+      <span>Prompt Engineering Portfolio · Built with HTML, CSS & JavaScript</span>
+    </div>
+  </footer>
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
